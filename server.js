@@ -1,17 +1,25 @@
 const express = require("express");
 const cors = require("cors");
+const path = require("path");
 
 const app = express();
 
+// Middleware
 app.use(cors());
 app.use(express.json());
-app.use(express.static("public"));
+
+// Serve all files inside public folder
+app.use(express.static(path.join(__dirname, "public")));
+
+// Home page
 app.get("/", (req, res) => {
-  res.send("🚚 Welcome to ATMS - Anbu Transport Management System");
+  res.sendFile(path.join(__dirname, "public", "index.html"));
 });
 
-const PORT = 5000;
+// Server port
+const PORT = process.env.PORT || 5000;
 
+// Start server
 app.listen(PORT, () => {
-  console.log(`ATMS Server running on http://localhost:${PORT}`);
+  console.log(`ATMS Server running on port ${PORT}`);
 });
