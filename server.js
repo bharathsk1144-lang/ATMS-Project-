@@ -7,15 +7,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// Serve all files inside public folder
-app.use(express.static(path.join(__dirname, "public")));
+// Serve files from the project root
+app.use(express.static(__dirname));
 
-// Open index.html as homepage
+// Open index.html
 app.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "public", "index.html"));
+  res.sendFile(path.join(__dirname, "index.html"));
 });
 
-// Render uses its own PORT
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
